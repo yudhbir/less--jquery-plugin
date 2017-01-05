@@ -1,0 +1,64 @@
+<html>
+<title>LESS DEVELOPMENT</title>
+<head>
+<link rel="stylesheet/less" href="main.less" />
+<script src="less.min.js"></script>
+<script src="jquery-1.12.4.min.js"></script>
+</head>
+<body>
+<div>HELLO</div>
+<div id="left"><span>HELLO</span></div>
+<div id="right">HELLO</div>
+</body>
+<ul id="nav">
+<li><a href="index.html">index</a></li>
+<li><a href="index1.html">index1</a></li>
+<li><a href="index2.html">index2</a></li>
+<li><a href="index3.html">index3</a></li>
+</ul>
+<style>
+.active{}
+</style>
+<script>
+$(function() {
+/*
+var pli=localStorage.getItem('region');
+if(pli)
+{
+	$("li").eq(pli+1).addClass("active");
+}
+
+    $('ul li').on('click', function() {
+        var parent =  $(this).index();
+		localStorage.setItem('region', parent); 
+        $("li").eq(parent+1).addClass("active");
+    });*/
+	
+	
+});
+$(function() {
+    var pgurl = window.location.href.substr(window.location.href.lastIndexOf("/")+1);
+	
+     $(" ul li a").each(function(){
+          if($(this).attr("href") == pgurl || $(this).attr("href") == '' )
+          $(this).addClass("active");
+     });
+	 setActive();
+});
+
+function setActive() {
+  aObj = document.getElementById('nav').getElementsByTagName('a');
+  for(i=0;i<aObj.length;i++) { 
+    if(document.location.href.indexOf(aObj[i].href)>=0) {
+      aObj[i].className='active';
+    }
+  }
+}
+
+</script>
+</html>
+<?php
+$collection = Mage::getModel('sales/order')->getCollection();
+$collection->getSelect()->joinLeft( array('order_item'=> 'sales_flat_order_item'), 'order_item.order_id = main_table.entity_id', array('order_item.sku'));
+
+?>
